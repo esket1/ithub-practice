@@ -1,0 +1,7 @@
+body { font-family: sans-serif; margin: 20px; }
+nav { margin-bottom: 20px; }
+button { padding: 8px 16px; cursor: pointer; }
+.tab { display: none; padding: 15px; border: 1px solid whitesmoke; }
+.tab.active { display: block; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { border: 1px solid whitesmoke; padding: 8px; text-align: left; }

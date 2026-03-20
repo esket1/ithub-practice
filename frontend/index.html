@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Библиотека</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <button onclick="showTab('physical')">Физические книги</button>
+        <button onclick="showTab('digital')">Цифровые ресурсы</button>
+        <button onclick="showTab('admin')">Админ-панель</button>
+    </nav>
+
+    <div id="physical" class="tab active">
+        <h2>Поиск физических книг</h2>
+        <input type="text" id="authorSearch" placeholder="Имя автора">
+        <button onclick="searchPhysicalBooks()">Найти</button>
+        
+        <table id="physicalBooksTable">
+            <thead>
+                <tr><th>Инвентарный №</th><th>Название</th><th>Автор</th><th>Статус</th><th>Действие</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="digital" class="tab">
+        <h2>Цифровые книги</h2>
+        <button onclick="loadDigital()">Обновить список</button>
+        <ul id="digitalList"></ul>
+    </div>
+
+    <div id="admin" class="tab">
+        <h2>Отчет по просроченным книгам</h2>
+        <iframe src="http://localhost/php/report.php" width="100%" height="400px" frameborder="0"></iframe>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
