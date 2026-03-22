@@ -1,5 +1,5 @@
 <?php
-$host = 'EXAMPLE';
+$host = '176.53.163.205';
 $port = '5432';
 $dbname = 'EXAMPLE';
 $user = 'EXAMPLE';

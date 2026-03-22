@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'http://176.53.163.205:3001/api';
 
 function showTab(tabId) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));

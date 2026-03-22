@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const soap = require('soap');
 const cors = require('cors');
 const xml2js = require('xml2js');
+const path = require('path');
 
 const app = express();
 app.use(cors());
@@ -90,5 +91,11 @@ app.post('/api/digital/download', async (req, res) => {
     res.json({ success: true, link: `http://dummy-link.com/download/${resourceId}` });
 });
 
-const PORT = process.env.PORT || 3000;
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+});
+
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Node Gateway running on port ${PORT}`));
