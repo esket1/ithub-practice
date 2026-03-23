@@ -76,7 +76,7 @@ app.post('/api/digital/download', async (req, res) => {
     const { resourceId, userId } = req.body;
     await DigitalResource.findByIdAndUpdate(resourceId, { $inc: { downloadCount: 1 } });
     await DownloadLog.create({ resourceId, userId });
-    res.json({ success: true, link: `http://dummy-link.com/download/${resourceId}` });
+    res.json({ success: true, link: `Эмуляция загрузки ресурса с ID ${resourceId}` });
 });
 
 app.use(express.static(path.join(__dirname, '../frontend')));
