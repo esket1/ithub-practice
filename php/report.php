@@ -9,11 +9,16 @@ if (!isset($_GET['raw'])) {
 }
 
 $stmt = $pdo->query("
-    SELECT l.id, b.inventory_number, b.title, l.reader_card, l.date_taken
+    SELECT 
+        l.id, 
+        b.inventory_number, 
+        b.title, 
+        l.reader_card, 
+        l.date_taken
     FROM physical_loans l
     JOIN physical_books b ON l.book_id = b.id
     WHERE l.date_returned IS NULL 
-    AND l.date_taken < DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+      AND l.date_taken < CURRENT_DATE - INTERVAL '30 days'
 ");
 $loans = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
