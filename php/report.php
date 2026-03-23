@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; 
+require_once 'config.php';
 
 header('Content-Type: application/xml; charset=utf-8');
 
@@ -12,8 +12,9 @@ $stmt = $pdo->query("
     SELECT l.id, b.inventory_number, b.title, l.reader_card, l.date_taken
     FROM physical_loans l
     JOIN physical_books b ON l.book_id = b.id
-    WHERE l.date_returned IS NULL
-"); 
+    WHERE l.date_returned IS NULL 
+    AND l.date_taken < DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+");
 $loans = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo '<OverdueReport>';

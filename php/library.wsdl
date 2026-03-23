@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions name="LibraryService"
-    targetNamespace="http://127.0.0.1:8000/php/library.wsdl"
-    xmlns:tns="http://127.0.0.1:8000/php/library.wsdl"
+    targetNamespace="http://176.53.163.205:8000/php/library.wsdl"
+    xmlns:tns="http://176.53.163.205:8000/php/library.wsdl"
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns="http://schemas.xmlsoap.org/wsdl/">
