@@ -22,35 +22,23 @@ const DownloadLogSchema = new mongoose.Schema({
 });
 const DownloadLog = mongoose.model('DownloadLog', DownloadLogSchema);
 
-async function initMongo() {
-    const count = await DigitalResource.countDocuments();
-    if (count === 0) {
-        await DigitalResource.insertMany([
-            { title: "Clean Code", author: "Robert C. Martin", format: "pdf" },
-            { title: "Design Patterns", author: "GoF", format: "epub" }
-        ]);
-        console.log("MongoDB initialized with test data.");
-    }
-}
-initMongo();
-
 let soapClient = null;
 soap.createClient(process.env.SOAP_WSDL_URL, (err, client) => {
-    if (err) console.error("SOAP Init Error:", err);
+    if (err) console.error("SOAP сервер:", err);
     else {
         soapClient = client;
-        console.log("SOAP Client connected successfully.");
+        console.log("SOAP сервер успешно подключен.");
     }
 });
 
 app.get('/api/physical/books', (req, res) => {
-    if (!soapClient) return res.status(500).json({ error: "SOAP client not ready" });
+    if (!soapClient) return res.status(500).json({ error: "SOAP сервер не запущен" });
     
     soapClient.searchBooksByAuthor({ author_name: req.query.author || '' }, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         
         xml2js.parseString(result.result, (xmlErr, parsed) => {
-            if (xmlErr) return res.status(500).json({ error: "XML parse error" });
+            if (xmlErr) return res.status(500).json({ error: "Ошибка парсинга XML" });
             const books = parsed.BookList.Book ? parsed.BookList.Book.map(b => ({
                 inventory_number: b.inventory_number[0],
                 title: b.title[0],
@@ -63,14 +51,14 @@ app.get('/api/physical/books', (req, res) => {
 });
 
 app.post('/api/physical/loan', (req, res) => {
-    if (!soapClient) return res.status(500).json({ error: "SOAP client not ready" });
+    if (!soapClient) return res.status(500).json({ error: "SOAP сервер не запущен" });
     const { inventory_number, reader_card } = req.body;
 
     soapClient.registerLoan({ inventory_number, reader_card }, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         
         xml2js.parseString(result.result, (xmlErr, parsed) => {
-            if (xmlErr) return res.status(500).json({ error: "XML parse error" });
+            if (xmlErr) return res.status(500).json({ error: "Ошибка парсинга XML" });
             res.json({
                 success: parsed.LoanResult.success[0] === 'true',
                 message: parsed.LoanResult.message[0]
@@ -98,4 +86,4 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Node Gateway running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Сервер успешно запущен на порту ${PORT}`));
